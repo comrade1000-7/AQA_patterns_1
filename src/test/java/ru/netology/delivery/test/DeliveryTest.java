@@ -29,7 +29,7 @@ class DeliveryTest {
         int daysToAddForSecondMeeting = 7;
         String secondMeetingDate = DataGenerator.generateDate(daysToAddForSecondMeeting);
         $("[data-test-id=city] input").setValue(validUser.getCity());
-        setDate(firstMeetingDate);
+        setDateAndClick(firstMeetingDate);
         $("[data-test-id=name] input").setValue(validUser.getName());
         $("[data-test-id=phone] input").setValue(validUser.getPhone());
         $("[data-test-id=agreement]").click();
@@ -38,7 +38,7 @@ class DeliveryTest {
         $("[data-test-id=success-notification] .notification__content")
                 .shouldHave(exactText("Встреча успешно запланирована на " + firstMeetingDate))
                 .shouldBe(visible);
-        setDate(secondMeetingDate);
+        setDateAndClick(secondMeetingDate);
         $(byText("Запланировать")).click();
         $("[data-test-id=replan-notification] .notification__content")
                 .shouldHave(text("У вас уже запланирована встреча на другую дату. Перепланировать?"))
@@ -49,7 +49,7 @@ class DeliveryTest {
                 .shouldBe(visible);
     }
 
-    void setDate (String date) {
+    void setDateAndClick (String date) {
         $("[data-test-id=date] input").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME), Keys.BACK_SPACE);
         $("[data-test-id=date] input").setValue(date);
     }
